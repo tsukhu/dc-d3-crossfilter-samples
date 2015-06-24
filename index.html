@@ -14,30 +14,10 @@
 	<link rel="stylesheet" type="text/css" href="http://colorbrewer2.org/export/colorbrewer.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <style>
-
 	.my-text {
 		font-family: 'Josefin Sans', sans-serif;
 	}
-#chart-line-hitsperday-q2.dc-chart .axis.y,
-#chart-line-hitsperday-q3.dc-chart .axis.y,
-#chart-line-hitsperday-q4.dc-chart .axis.y
-{opacity: 0.0;}
-
-.dc-chart g.deselected path {
-	opacity: .5;
-    fill-opacity: .5;
-}
-
-.dc-chart .pie-slice :hover {
-    fill-opacity: .8;
-}
-
-.dc-chart .pie-slice.highlight {
-    fill-opacity: .8;
-}
-
-
-	</style>
+</style>
 </head>
 <body>
 
@@ -89,28 +69,28 @@
 					  </span>
 				  </h4>
 				  <div class='row'>
-					<div class='span6' id='chart-ring-year' style="padding-left:5px;">
+					<div class='span6 dc-chart' id='chart-ring-year' style="padding-left:5px;">
 					<h4>Registration by Year</h4>
 					</div>
-					<div class='span6' id='chart-line-hitsperday' style="padding-left:5px;">
+					<div class='span6 dc-chart' id='chart-line-regperyear' style="padding-left:5px;">
 					  <h4>Major Indian Cities</h4>
 					</div>    
 				  </div>
 				</div>
 			</div>
 			<div class='row'>
-				<div class='span12' id='year-time-chart'>
+				<div class='span12 dc-chart' id='year-time-chart'>
 					<h4>Registration per year for all cities</h4>
 				</div>
 			</div>
 			<div class='row'>
-				<div class='span12' id='year-avg-chart'>
+				<div class='span12 dc-chart' id='year-avg-chart'>
 					<h4>Average registration per year for all cities</h4>
 				</div>
 			</div>
 			<div class='row'>
 				<div class='span12'>
-				  <table class='table table-hover' id='registration-table-graph'>
+				  <table class='table table-hover dc-data-table dc-chart' id='registration-table-graph'>
 					<thead>
 					  <tr class='header'>
 						<th>Year</th>
@@ -131,32 +111,30 @@
 
 	
 <script>
+ 	 /* Cross filter debug utility 
+     	reference : http://www.codeproject.com/Articles/693841/Making-Dashboards-with-Dc-js-Part-Using-Crossfil
+     */
 	function print_filter(filter){
 		var f=eval(filter);
 		if (typeof(f.length) != "undefined") {}else{}
 		if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
 		if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
 		console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
-	} 
-	
-	
-
+	}
 </script>
 <script>
 'use strict'
 
-// define bubble chart and get a handle
-//var yearlyBubbleChart = dc.bubbleChart('#referrals-bubble-chart');
-
 // load the csv data
 d3.csv("data/sample1-datafile.csv", function (data) {
 
-    // create cross-filter dimensions and groups
-    // see the crossfilter api at (https://github.com/square/crossfilter/wiki/API-Reference) for reference.
-   print_filter(data);
+    //Check data import
+    //print_filter(data);
 	
+    // Melt the data to separate city registration data per year
 	var newdata = melt(data,["city"],"year");
-	 print_filter(newdata);
+	
+    //print_filter(newdata);
 	var parseDate = d3.time.format("%Y").parse;
 	newdata.forEach(function(d) {
 		d.date = parseDate(d.year);
@@ -166,15 +144,17 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 	});
 	
 	var ndx = crossfilter(newdata);
+	
 	var all = ndx.groupAll();
+	// Create dimensions
 	var dateDim = ndx.dimension(function(d) {return d.year;});
 	var yearDim = ndx.dimension(function(d) {return d.year;});
 	var minDate = dateDim.bottom(1)[0].year;
 	var maxDate = dateDim.top(1)[0].year;
-	print_filter(minDate);
-	print_filter(maxDate);
+	//print_filter(minDate);
+	//print_filter(maxDate);
 
-	
+	// Reduce data by group
 	var year_total = dateDim.group().reduceSum(function(d) {return d.value;});
 	var delhi=dateDim.group().reduceSum(function(d) {if (d.city==="Delhi") {return d.value;}else{return 0;}});
 	var mumbai=dateDim.group().reduceSum(function(d) {if (d.city==="Mumbai") {return d.value;}else{return 0;}});
@@ -182,18 +162,16 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 	var chennai=dateDim.group().reduceSum(function(d) {if (d.city==="Chennai") {return d.value;}else{return 0;}});
 	var kolkata=dateDim.group().reduceSum(function(d) {if (d.city==="Kolkata") {return d.value;}else{return 0;}});
 	var pune=dateDim.group().reduceSum(function(d) {if (d.city==="Pune") {return d.value;}else{return 0;}});
-	print_filter(year_total);
-	print_filter(delhi);
+	//print_filter(year_total);
+	//print_filter(delhi);
 	
-	
+	// Label creation function
 	function getvalues(d){
 		var str=d.key+":"+d.value+"\n";
-		//remove filter so it doesn't effect the graphs,
-		//this is the only filter so we can do this
 		return str;
 	}
 	
-	
+	// Reduce function for city wise totals and avg per year
 	var flatMapGroup = dateDim.group().reduce(
 	  function (p,v) {
 		++p.count;
@@ -213,11 +191,12 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 	  },
 	  function () { return {count:0,avg:0,total:0}; }
 	  ); 
-	 print_filter(flatMapGroup);
+	
+	//print_filter(flatMapGroup);
 	 
 	var yearChart  = dc.lineChart("#year-time-chart");
 	
-	var moveChart  = dc.lineChart("#chart-line-hitsperday");
+	var moveChart  = dc.lineChart("#chart-line-regperyear");
 	moveChart.yAxis().tickFormat(function(v) {return v/1000 + "M";});
 	moveChart
         .renderArea(true)
@@ -226,9 +205,11 @@ d3.csv("data/sample1-datafile.csv", function (data) {
         .transitionDuration(1000)
         .margins({top: 30, right: 50, bottom: 25, left: 40})
         .dimension(dateDim)
-	//	.colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
-      //  .colorDomain([-500, 500]) //(optional) define color domain to match your data domain if you want to bind data or
-//		.colors(d3.scale.category20b())
+	//  .colorDomain([0, 6000])
+	//	.colors(d3.scale.category20b())
+	//	.colorAccessor(function (d) {
+    //         return d.value;
+    //   })
 		.brushOn(false)
 		.mouseZoomable(true)
 		.elasticX(true)
@@ -239,7 +220,6 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 		.stack(kolkata,"Kolkata")
 		.stack(pune,"Pune")
 		.stack(hyderabad,"Hyderabad")		
-	//	.yAxis().tickFormat(function (v) { return v;})
 		.x(d3.scale.linear().domain([minDate, maxDate]).range([0,50]))
 		.legend(dc.legend().x(50).y(10).itemHeight(13).gap(5).horizontal(true))
 		.yAxisLabel("Vehicles Registered")
@@ -248,7 +228,7 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 		.xAxis().tickFormat(function (v) {
 		  return v;
 		});
-		//d3.time.scale().domain([2000,2012]));
+
 		
 	var yearRingChart   = dc.pieChart("#chart-ring-year");
 		yearRingChart
@@ -276,7 +256,6 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 	
 	
 	var yearlyAvgBubbleChart = dc.bubbleChart('#year-avg-chart');
-	 /* dc.bubbleChart('#yearly-bubble-chart', 'chartGroup') t */
     yearlyAvgBubbleChart
         .width(960) // (optional) define chart width, :default = 200
         .height(250)  // (optional) define chart height, :default = 200
@@ -284,11 +263,11 @@ d3.csv("data/sample1-datafile.csv", function (data) {
         .margins({top: 10, right: 50, bottom: 30, left: 40})
         .dimension(yearDim)
 		.group(flatMapGroup)
-     //   .colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
-     //   .colorDomain([-500, 500])
-	//	.colorAccessor(function (d) {
-   //         return d.value.avg;
-    //    })
+        .colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
+        .colorDomain([300, 1000])
+		.colorAccessor(function (d) {
+              return d.value.avg;
+         })
         .keyAccessor(function (p) {
             return p.value.total;
         })
@@ -347,8 +326,6 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 		
 });
 </script>
-
-
 	
 </body>
 </html>
