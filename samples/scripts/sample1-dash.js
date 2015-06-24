@@ -13,7 +13,7 @@
 
 
 // load the csv data
-d3.csv("../data/sample1-datafile.csv", function (data) {
+d3.csv("data/sample1-datafile.csv", function (data) {
 
     //Check data import
     //print_filter(data);

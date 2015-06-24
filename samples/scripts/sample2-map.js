@@ -9,7 +9,7 @@ function print_filter(filter){
 
 // define bubble chart and get a handle
 //var yearlyBubbleChart = dc.bubbleChart('#referrals-bubble-chart');
- d3.csv("../data/us-state-capital-population.csv", function (data) {
+ d3.csv("data/us-state-capital-population.csv", function (data) {
  
 	data.forEach(function(d) {
 		d.longitude = +d.longitude;
@@ -28,7 +28,7 @@ function print_filter(filter){
         });
 	var minPop = states.bottom(1)[0].population;
 	var maxPop = states.top(1)[0].population;
-	d3.json("../data/us-states.json", function (statesJson) {
+	d3.json("data/us-states.json", function (statesJson) {
             usChart.width(990)
                     .height(500)
                     .dimension(states)
