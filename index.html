@@ -79,12 +79,10 @@
 				</div>
 			</div>
 			<div class='row'>
-				<div class='span12 dc-chart' id='year-time-chart'>
+				<div class='span6 dc-chart' id='year-time-chart'>
 					<h4>Registration per year for all cities</h4>
 				</div>
-			</div>
-			<div class='row'>
-				<div class='span12 dc-chart' id='year-avg-chart'>
+				<div class='span6 dc-chart' id='year-avg-chart'>
 					<h4>Average registration per year for all cities</h4>
 				</div>
 			</div>
@@ -203,7 +201,7 @@ d3.csv("data/sample1-datafile.csv", function (data) {
         .width(500)
         .height(200)
         .transitionDuration(1000)
-        .margins({top: 30, right: 50, bottom: 25, left: 40})
+        .margins({top: 30, right: 50, bottom: 30, left: 40})
         .dimension(dateDim)
 	//  .colorDomain([0, 6000])
 	//	.colors(d3.scale.category20b())
@@ -223,6 +221,7 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 		.x(d3.scale.linear().domain([minDate, maxDate]).range([0,50]))
 		.legend(dc.legend().x(50).y(10).itemHeight(13).gap(5).horizontal(true))
 		.yAxisLabel("Vehicles Registered")
+		.xAxisLabel('Years')
 		//.yAxisPadding(100)
 		.title(function(d){ return getvalues(d);} )
 		.xAxis().tickFormat(function (v) {
@@ -240,15 +239,17 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 				
 	yearChart.yAxis().tickFormat(function(v) {return v/1000 + "M";});
 	yearChart
-        .width(960)
-        .height(200)
+        .width(500)
+        .height(250)
         .transitionDuration(500)
-        .margins({top: 10, right: 10, bottom: 20, left: 40})
+        .margins({top: 10, right: 50, bottom: 30, left: 40})
         .dimension(yearDim)
 		.elasticY(true)
+        .elasticX(true)
 		.group(year_total,"total")
 		.x(d3.scale.linear().domain([minDate, maxDate]).range([0,50]))
 		.yAxisLabel("Vehicles Registered")
+		.xAxisLabel('Years')
 		.title(function(d){ return getvalues(d);} )
 		.xAxis().tickFormat(function (v) {
 		  return v;
@@ -257,7 +258,7 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 	
 	var yearlyAvgBubbleChart = dc.bubbleChart('#year-avg-chart');
     yearlyAvgBubbleChart
-        .width(960) // (optional) define chart width, :default = 200
+        .width(500) // (optional) define chart width, :default = 200
         .height(250)  // (optional) define chart height, :default = 200
         .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
         .margins({top: 10, right: 50, bottom: 30, left: 40})
