@@ -175,7 +175,7 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 		++p.count;
 		p[v.city] = isNaN(v.value) ? 0 : +v.value;
 		p["total"] += 	p[v.city];
-		p["avg"] = p["total"]/p.count;
+		p["avg"] = Math.round(p["total"]/p.count);
 		return p;
 	  },
 	  function (p,v) {
