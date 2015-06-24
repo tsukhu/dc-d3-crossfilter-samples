@@ -104,6 +104,11 @@
 				</div>
 			</div>
 			<div class='row'>
+				<div class='span12' id='year-avg-chart'>
+					<h4>Average registration per year for all cities</h4>
+				</div>
+			</div>
+			<div class='row'>
 				<div class='span12'>
 				  <table class='table table-hover' id='registration-table-graph'>
 					<thead>
@@ -148,9 +153,10 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 
     // create cross-filter dimensions and groups
     // see the crossfilter api at (https://github.com/square/crossfilter/wiki/API-Reference) for reference.
-   
+   print_filter(data);
 	
 	var newdata = melt(data,["city"],"year");
+	 print_filter(newdata);
 	var parseDate = d3.time.format("%Y").parse;
 	newdata.forEach(function(d) {
 		d.date = parseDate(d.year);
@@ -190,16 +196,22 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 	
 	var flatMapGroup = dateDim.group().reduce(
 	  function (p,v) {
+		++p.count;
 		p[v.city] = isNaN(v.value) ? 0 : +v.value;
-		
+		p["total"] += 	p[v.city];
+		p["avg"] = p["total"]/p.count;
 		return p;
 	  },
 	  function (p,v) {
+		--p.count;
+		
+		p["total"] -= p[v.city];
 		p[v.city] = 0;
+		p["avg"] = p["total"]/p.count;
 		
 		return p;
 	  },
-	  function () { return {}; }
+	  function () { return {count:0,avg:0,total:0}; }
 	  ); 
 	 print_filter(flatMapGroup);
 	 
@@ -245,7 +257,7 @@ d3.csv("data/sample1-datafile.csv", function (data) {
 		.dimension(yearDim)
 		.group(year_total)
 		.innerRadius(50); 
-	
+				
 	yearChart.yAxis().tickFormat(function(v) {return v/1000 + "M";});
 	yearChart
         .width(960)
@@ -254,14 +266,57 @@ d3.csv("data/sample1-datafile.csv", function (data) {
         .margins({top: 10, right: 10, bottom: 20, left: 40})
         .dimension(yearDim)
 		.elasticY(true)
-		.group(year_total)
+		.group(year_total,"total")
 		.x(d3.scale.linear().domain([minDate, maxDate]).range([0,50]))
 		.yAxisLabel("Vehicles Registered")
 		.title(function(d){ return getvalues(d);} )
 		.xAxis().tickFormat(function (v) {
 		  return v;
 		});
-		
+	
+	
+	var yearlyAvgBubbleChart = dc.bubbleChart('#year-avg-chart');
+	 /* dc.bubbleChart('#yearly-bubble-chart', 'chartGroup') */
+    yearlyAvgBubbleChart
+        .width(960) // (optional) define chart width, :default = 200
+        .height(250)  // (optional) define chart height, :default = 200
+        .transitionDuration(1500) // (optional) define chart transition duration, :default = 750
+        .margins({top: 10, right: 50, bottom: 30, left: 40})
+        .dimension(yearDim)
+		.group(flatMapGroup)
+     //   .colors(colorbrewer.RdYlGn[9]) // (optional) define color function or array for bubbles
+     //   .colorDomain([-500, 500])
+	//	.colorAccessor(function (d) {
+   //         return d.value.avg;
+    //    })
+        .keyAccessor(function (p) {
+            return p.value.total;
+        })
+        .valueAccessor(function (p) {
+            return p.value.avg;
+        })
+        .radiusValueAccessor(function (p) {
+            return p.value.avg;
+        })
+		.maxBubbleRelativeSize(0.25)
+        .x(d3.scale.linear().domain([2001, 2015]))
+        .y(d3.scale.linear().domain([0, 1000]))
+        .r(d3.scale.linear().domain([300, 6000]).range([0,50]))
+		.elasticY(true)
+        .elasticX(true)
+        .yAxisPadding(100)
+        .xAxisPadding(500)
+        .renderHorizontalGridLines(true) // (optional) render horizontal grid lines, :default=false
+        .renderVerticalGridLines(true) // (optional) render vertical grid lines, :default=false
+        .xAxisLabel('Registration Total') // (optional) render an axis label below the x axis
+        .yAxisLabel('Registration Average')
+		.renderLabel(true) // (optional) whether chart should render labels, :default = true
+        .label(function (p) {
+            return p.key;
+        })
+		.yAxis().tickFormat(function (v) {return v/1000 + "M";});
+ 
+				
 	var dataCountWidget   = dc.dataCount("#dc-data-count")
 	dataCountWidget
 		.dimension(ndx)
