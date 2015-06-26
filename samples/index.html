@@ -33,6 +33,22 @@
 .my-text {
 	font-family: 'Josefin Sans', sans-serif;
 }
+
+/* Set the fixed height of the footer here */
+#footer {
+	height: 60px;
+	background-color: #f5f5f5;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+	min-height: 100%;
+	height: auto;
+	/* Negative indent footer by its height */
+	margin: 0 auto -60px;
+	/* Pad bottom by footer height */
+	padding: 0 0 60px;
+}
 </style>
 
 <script>
@@ -43,27 +59,47 @@
 </head>
 <body>
 
-
-	<div class='container my-text' id='main-container'>
-		<div id="sample-menu"></div>
-		<div class='container-fluid'>
-			<div class='row span6'>
-				<div class='span6'>
-					<div class="panel panel-primary">
-						<div class="panel-heading">DC D3 Crossfilter Samples</div>
-						<div class="panel-body">
-							<br>
-							<br>
-							<p>Welcome to the world of DC.JS + D3.JS samples !!<br>
-							   Use the "Samples" drop down menu to explore the samples <br>
-							   <b>Project contributors:<b><br>
-							   <ul>
-							   	<li><a href="https://github.com/tsukhu">Tarun Kumar Sukhu</a></li>
-							   	<li><a href="https://github.com/NarendraPeddineni">Narendra Peddineni</a></li>
-							   </ul>	
+	<!-- Wrap all page content here -->
+	<div id="wrap">
+		<div class='container my-text' id='main-container'>
+			<div id="sample-menu"></div>
+			<div class='container-fluid'>
+				<div class='row'>
+					<div class='span12'>
+						<div class="jumbotron">
+							<h1>DC D3 Crossfilter Samples</h1>
+							<p>
+								Welcome to the world of DC.JS + D3.JS samples !!<br> Use
+								the "Samples" drop down menu to explore the samples <br>
 							</p>
 						</div>
 					</div>
+				</div>
+				<div class='row'>
+					<div class="list-group">
+						<a href="#" class="list-group-item active">
+							<h4 class="list-group-item-heading">List of Samples</h4>
+						</a>
+						<a href="sample1-dash.html" class="list-group-item">
+							<h4 class="list-group-item-heading">Vehicle Registration for Indian cities - dashboard</h4>
+							<p class="list-group-item-text">The data format has been taken from data.gov.in and provides a dashboard view of the registered motor vehicles in India from 2001 to 2011. The dashboard is looking at cities which have more than a million vehicle registrations.This uses melt.js, crossfilter,d3 and dc for the visualization.</p>
+						</a>
+						<a href="sample2-map.html" class="list-group-item">
+							<h4 class="list-group-item-heading">US population density by state capitals</h4>
+							<p class="list-group-item-text">This uses the DC.js choropleth charts to map US state wise population with color coding of red to green to indicate the lower to high density of population. This has been inspired by the wonderful sample provided for US Venture Capital Landscape 2011 (http://dc-js.github.io/dc.js/vc/)</p>
+						</a>
+					</div>
+				</div>
+
+			</div>
+			<div id="footer">
+				<div class="container">
+					<br>
+					<p class="text-muted credit">
+						<b>Project Contributors</b> <a href="https://github.com/tsukhu">Tarun
+							Kumar Sukhu</a> and <a href="https://github.com/NarendraPeddineni">Narendra
+							Peddineni</a>.
+					</p>
 				</div>
 			</div>
 		</div>
