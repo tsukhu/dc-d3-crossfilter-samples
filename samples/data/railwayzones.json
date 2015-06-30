@@ -1,0 +1,287 @@
+{
+ "name": "Indian Railway",
+ "children": [
+  {
+   "name": "Southern",
+      "children": [
+    {
+     "name": "Chennai",
+     "children": [
+      {"name": "Chennai", "size": 1983},
+      {"name": "Tiruchirappalli", "size": 2047},
+      {"name": " Madurai", "size": 1375},
+      {"name": "Palakkad", "size": 8746},
+      {"name": "Salem,", "size": 2202},
+      {"name": "Thiruvananthapuram", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+ {
+   "name": "East Coast",
+   "children": [
+    {
+     "name": "Allahabad",
+     "children": [
+      {"name": "Allahabad", "size": 1983},
+      {"name": "Agra", "size": 2047},
+      {"name": "Jhansi", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+ 
+  {
+   "name": "North Eastern",
+   "children": [
+    {
+     "name": "Gorakhpur",
+     "children": [
+      {"name": "Izzatnagar", "size": 1983},
+      {"name": "Lucknow", "size": 2047},
+      {"name": "Varanasi", "size": 2042}
+      ]
+    }
+     ]
+  },
+ 
+ 
+ {
+   "name": "North Western",
+   "children": [
+    {
+     "name": "Jaipur",
+     "children": [
+      {"name": "Ajmer", "size": 1983},
+      {"name": "Bikaner", "size": 2047},
+       {"name": "Jaipur", "size": 2047},
+      {"name": "Jodhpur", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+ {
+   "name": "Northeast Frontier",
+   "children": [
+    {
+     "name": "Guwahati",
+     "children": [
+      {"name": "Alipurduar", "size": 1983},
+      {"name": "Katihar", "size": 2047},
+       {"name": "Rangia", "size": 2047},
+        {"name": "Tinsukia", "size": 2047},
+      {"name": "Lumding", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+  {
+   "name": "Northern",
+   "children": [
+    {
+     "name": "Delhi",
+     "children": [
+      {"name": "Delhi", "size": 1983},
+      {"name": "Ambala", "size": 2047},
+       {"name": "Firozpur", "size": 2047},
+        {"name": "Lucknow", "size": 2047},
+      {"name": "Moradabad", "size": 2042}
+      ]
+    }
+     ]
+  },
+ 
+ 
+  {
+   "name": "South Central",
+   "children": [
+    {
+     "name": "Secunderabad",
+     "children": [
+      {"name": "Secunderabad", "size": 1983},
+      {"name": "Vijayawada", "size": 2047},
+       {"name": "Hyderabad", "size": 2047},
+        {"name": "Guntakal", "size": 2047},
+         {"name": "Nanded", "size": 2047},
+      {"name": "Guntur", "size": 2042}
+      ]
+    }
+     ]
+  },
+ 
+ 
+ 
+ {
+   "name": "South East Central",
+   "children": [
+    {
+     "name": "Bilaspur",
+     "children": [
+      {"name": "Bilaspur", "size": 1983},
+      {"name": "Raipur", "size": 2047},
+      {"name": "Nagpur", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+ {
+   "name": "South East Central",
+   "children": [
+    {
+     "name": "Bilaspur",
+     "children": [
+      {"name": "Bilaspur", "size": 1983},
+      {"name": "Raipur", "size": 2047},
+      {"name": "Nagpur", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+ 
+  {
+   "name": "South Eastern",
+   "children": [
+    {
+     "name": "Kolkata",
+     "children": [
+      {"name": "Adra", "size": 1983},
+      {"name": "Chakradharpur", "size": 2047},
+      {"name": "Ranchi", "size": 2047},
+      {"name": "Kharagpur", "size": 2042}
+       ]
+    }
+     ]
+  },
+ 
+ 
+ 
+  {
+   "name": "South Western",
+   "children": [
+    {
+     "name": "Hubli",
+     "children": [
+      {"name": "Hubli", "size": 1983},
+      {"name": "Mysore", "size": 2047},
+      {"name": "Bangalore", "size": 2042}
+      ]
+    }
+     ]
+  },
+ 
+ 
+ 
+ {
+   "name": "West Central",
+   "children": [
+    {
+     "name": "Jabalpur",
+     "children": [
+      {"name": "Jabalpur", "size": 1983},
+      {"name": "Bhopal", "size": 2047},
+      {"name": "Kota", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+ 
+ 
+  {
+   "name": "Western Railway",
+   "children": [
+    {
+     "name": "Mumbai",
+     "children": [
+      {"name": "Mumbai Central", "size": 1983},
+      {"name": "Ratlam", "size": 2047},
+       {"name": "Rajkot", "size": 2047},
+        {"name": "Bhavnagar", "size": 2047},
+        {"name": "Vadodara", "size": 2047},
+      {"name": "Ahmedabad", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+ 
+  {
+   "name": "Eastern",
+   "children": [
+    {
+     "name": "Kolkata",
+     "children": [
+      {"name": "Howrah,", "size": 1983},
+      {"name": "Sealdah", "size": 2047},
+      {"name": " Asansol", "size": 1375},
+      {"name": "Malda", "size": 2042}
+     ]
+    }
+     ]
+  },
+ 
+ 
+
+  {
+   "name": "Central Railway",
+   "children": [
+    {
+     "name": "Mumbai",
+     "children": [
+      {"name": "Mumbai", "size": 1983},
+      {"name": " Bhusawal", "size": 2047},
+      {"name": "Pune", "size": 1375},
+      {"name": " Solapur", "size": 8746},
+      {"name": "Nagpur", "size": 2042}
+     ]
+    }
+
+    ]
+  },
+  
+  
+  {
+   "name": "East Central ",
+   "children": [
+    {
+     "name": "Hajipur",
+     "children": [
+      {"name": "Danapur", "size": 721},
+      {"name": "Dhanbad", "size": 4294},
+      {"name": "Mughalsarai", "size": 9800},
+      {"name": "Samastipur", "size": 1314},
+      {"name": "Sonpur", "size": 2220}
+       ]
+    }
+     ]
+  },
+ 
+
+ 
+  {
+   "name": "Konkan Railway",
+   "children": [
+  
+    {"name": "Roha", "size": 16540}
+  
+    
+   ]
+   
+  }
+ ]
+ 
+}

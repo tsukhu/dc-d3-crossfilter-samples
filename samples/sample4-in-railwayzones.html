@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<title>D3 Samples</title>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.js"
+	charset="utf-8"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-beta.12/dc.min.js"
+	charset="utf-8"></script>
+<script src="../js/melt.js" charset="utf-8"></script>
+<script src="http://colorbrewer2.org/export/colorbrewer.js"
+	charset="utf-8">
+	
+</script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+	charset="utf-8">
+	
+</script>
+<link href='http://fonts.googleapis.com/css?family=Josefin+Sans'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-beta.12/dc.min.css">
+<link rel="stylesheet" type="text/css"
+	href="http://colorbrewer2.org/export/colorbrewer.css">
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style>
+.my-text {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+.node {
+	cursor: pointer;
+}
+
+.node circle {
+	fill: #F78484;
+	stroke: #F78484;
+	stroke-width: 4px;
+}
+
+.node text {
+	font: 10px sans-serif;
+}
+
+.link {
+	fill: none;
+	stroke: #F78484;
+	stroke-width: 2px;
+}
+
+</style>
+
+<script>
+	$(function() {
+		$("#sample-menu").load("menu.html");
+	});
+</script>
+</head>
+<body>
+	<div class='container my-text' id='main-container'>
+		<div id="sample-menu"></div>
+		<div class='container' id='body-container'></div>
+	</div>
+	<script src="scripts/sample4-in-railwayzones.js" charset="utf-8"></script>
+</body>
+</html>
