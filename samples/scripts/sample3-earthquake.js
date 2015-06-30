@@ -31,7 +31,7 @@ var refeshData = function () {
 		if (error) {
 			d3.json("data/earth-quake.json", function (json) {
 				data = json;
-			}
+			});
 		} else {
 			data = json;
 		}
