@@ -206,7 +206,7 @@ var refeshData = function () {
 			.group(all);
 		dc.renderAll();
 			
-	}).on("beforesend", function(request) { request.withCredentials = true; });
+	});
 }
 refeshData();
 setInterval(refeshData,600000);
