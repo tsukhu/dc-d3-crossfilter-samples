@@ -26,10 +26,7 @@ var dataCountWidget   = dc.dataCount("#dc-data-count")
 
 var refeshData = function () {
 	// load the json data
-	//d3.json("http://earthquake-report.com/feeds/recent-eq?json", function (data) {
-	d3.json("http://earthquake-report.com/feeds/recent-eq?json")
-		.on("beforesend", function(request) { request.withCredentials = true; })
-		.on("load", function(data) {
+	d3.json("http://earthquake-report.com/feeds/recent-eq?json", function (data) {
 		
 		var currentdate = new Date();
 
@@ -209,7 +206,7 @@ var refeshData = function () {
 			.group(all);
 		dc.renderAll();
 			
-	});
+	}).on("beforesend", function(request) { request.withCredentials = true; });
 }
 refeshData();
 setInterval(refeshData,600000);
