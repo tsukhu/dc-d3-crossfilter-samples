@@ -23,18 +23,13 @@ var lineChart  = dc.lineChart("#eq-timechart");
 var depthChart = dc.barChart("#eq-depthchart");
 var eventtable   = dc.dataTable("#eq-eventtable");
 var dataCountWidget   = dc.dataCount("#dc-data-count")
-var data;
+
 var refeshData = function () {
 	// load the json data
-	d3.json("http://earthquake-report.com/feeds/recent-eq?json", function (error,json) {
-		
-		if (error) {
-			d3.json("data/earth-quake.json", function (json) {
-				data = json;
-			});
-		} else {
-			data = json;
-		}
+	//d3.json("http://earthquake-report.com/feeds/recent-eq?json", function (data) {
+	d3.json("http://earthquake-report.com/feeds/recent-eq?json")
+		.on("beforesend", function(request) { request.withCredentials = true; })
+		.on("load", function(data) {
 		
 		var currentdate = new Date();
 
