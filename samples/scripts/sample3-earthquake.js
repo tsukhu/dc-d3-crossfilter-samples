@@ -36,6 +36,14 @@ var refeshData = function () {
 		d3.select('#refreshDate').text(currentdate).style('color','blue');
 		data.forEach(function(d) {
 			d.date_time = parseDate(d.date_time);
+			d.radius = +d.magnitude*2;
+			d.fillKey = function (d) { 
+				if (+d.magnitude < 3.5) {
+					return 'L3'; 
+				} else if (+d.magnitude > 3.5 && +d.magnitude < 5) {
+					return 'L2';
+				} else return 'L1';
+			};
 		});
 		
 		//print_filter(data);
@@ -205,8 +213,30 @@ var refeshData = function () {
 			.dimension(ndx)
 			.group(all);
 		dc.renderAll();
-			
-	});
+		//print_filter(hourDim);
+		   // var map = new Datamap({element: document.getElementById('container')});
+		 var map = new Datamap({
+		        element: document.getElementById('eq-map'),
+		        scope: 'world',
+		        fills: {
+		        	'L1': 'red',
+		        	'L2': 'green',
+		        	'L3': 'yellow',
+		            defaultFill: 'rgba(23,48,210,0.9)' //any hex, color name or rgb/rgba value
+		        },
+		        projection: 'equirectangular'
+		    });
+		 map.bubbles([]);
+		 map.bubbles(data,{
+			    popupTemplate: function (geo, data) { 
+		            return ['<div class="hoverinfo">' +  data.location,
+		            '<br/>Magnitude: ' +  data.magnitude,
+		            '<br/>Depth: ' +  data.depth + '',
+		            '<br/>Date: ' +  data.date_time + '',
+		            '</div>'].join('');
+		    }
+		 });
+});
 }
 refeshData();
 setInterval(refeshData,600000);
