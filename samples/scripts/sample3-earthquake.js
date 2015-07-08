@@ -9,7 +9,6 @@
 		if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
 		console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
 	}
-
 	
 	// Label creation function
 	function getvalues(d){
@@ -23,6 +22,21 @@ var lineChart  = dc.lineChart("#eq-timechart");
 var depthChart = dc.barChart("#eq-depthchart");
 var eventtable   = dc.dataTable("#eq-eventtable");
 var dataCountWidget   = dc.dataCount("#dc-data-count")
+
+var renderBubbles = function (map,hourDim) {
+	
+	// map.bubbles([]);
+	 map.bubbles(hourDim.top(Infinity),{
+		    popupTemplate: function (geo, data) { 
+	            return ['<div class="hoverinfo">' +  data.location,
+	            '<br/>Magnitude: ' +  data.magnitude,
+	            '<br/>Depth: ' +  data.depth + '',
+	            '<br/>Date: ' +  data.date_time + '',
+	            '</div>'].join('');
+	    }
+	 });
+	
+}
 
 var refeshData = function () {
 	// load the json data
@@ -72,13 +86,13 @@ var refeshData = function () {
 		    .reduceCount(function(d) { return d.depth; }) // counts
 		//print_filter(depthValueGroupCount);
 		var minMag = magValue.bottom(1)[0].magnitude;
-		var maxMag = magValue.top(1)[0].magnitude;
+		var maxMag = +magValue.top(1)[0].magnitude;
 		
 		var minDate = hourDim.bottom(1)[0].year;
 		var maxDate = hourDim.top(1)[0].year;
 		
 		var minDepth = depthDim.bottom(1)[0].depth;
-		var maxDepth = depthDim.top(1)[0].depth;
+		var maxDepth = +depthDim.top(1)[0].depth + 10;
 		//print_filter(magValueGroupCount.bottom);
 		magnitudeChart.width(480)
 		    .height(200)
@@ -212,8 +226,9 @@ var refeshData = function () {
 		dataCountWidget
 			.dimension(ndx)
 			.group(all);
-		dc.renderAll();
+
 		//print_filter(hourDim);
+		//print_filter(data);
 		   // var map = new Datamap({element: document.getElementById('container')});
 		 var map = new Datamap({
 		        element: document.getElementById('eq-map'),
@@ -226,16 +241,15 @@ var refeshData = function () {
 		        },
 		        projection: 'equirectangular'
 		    });
-		 map.bubbles([]);
-		 map.bubbles(data,{
-			    popupTemplate: function (geo, data) { 
-		            return ['<div class="hoverinfo">' +  data.location,
-		            '<br/>Magnitude: ' +  data.magnitude,
-		            '<br/>Depth: ' +  data.depth + '',
-		            '<br/>Date: ' +  data.date_time + '',
-		            '</div>'].join('');
-		    }
-		 });
+		
+		lineChart.renderlet(function(chart) {
+            dc.events.trigger(function() {
+            	renderBubbles(map,hourDim);
+            });
+        })
+
+        dc.renderAll();
+
 });
 }
 refeshData();
