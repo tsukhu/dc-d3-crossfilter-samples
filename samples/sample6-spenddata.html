@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head>
+<title>D3 Samples</title>
+<script data-require="angular.js@1.2.x" src="https://code.angularjs.org/1.2.16/angular.js" data-semver="1.2.16"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.js"
+	charset="utf-8"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-beta.12/dc.min.js"
+	charset="utf-8"></script>
+<script src="../js/melt.js" charset="utf-8"></script>
+<script src="http://colorbrewer2.org/export/colorbrewer.js"
+	charset="utf-8">
+	
+</script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"
+	charset="utf-8">
+	
+</script>
+
+<script src="scripts/sample6-spenddata.js" charset="utf-8"></script>
+
+
+<link href='http://fonts.googleapis.com/css?family=Josefin+Sans'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-beta.12/dc.min.css">
+<link rel="stylesheet" type="text/css"
+	href="http://colorbrewer2.org/export/colorbrewer.css">
+<link rel="stylesheet" type="text/css"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style>
+.my-text {
+	font-family: 'Josefin Sans', sans-serif;
+}
+
+
+</style>
+
+<script>
+	$(function() {
+		$("#sample-menu").load("menu.html");
+	});
+</script>
+    <script src="../js/angular-nvd3.min.js"></script>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+ <script src="../js/nv.d3.js"></script>
+<script src="../js/angularjs-nvd3-directives.js"></script>
+    <link rel="stylesheet" href="../css/nv.d3.css"/>
+</head>
+<body>
+	<div class='container my-text' id='main-container'>
+		<div id="sample-menu"></div>
+		<div class='container'>
+			<div class='row span12' id="dc-data-count">
+				<h3>Spend Data Analysis</h3>
+			</div>
+		</div>
+		<div class='container' ng-app='TFGPOC'>
+		<div class='row'>
+				<div class="col-md-6">
+					<div class="bs-example">
+						<div class="panel panel-default">
+							<div class="panel-heading"><strong>Spend by Suppliers</strong></div>
+							<div class="panel-body">
+										<div ng-controller="barChartCtrl">
+										<nvd3-discrete-bar-chart
+												data="barChartData"
+												showXAxis="true"
+												showYAxis="true"
+												showValues="true"
+												showLegend="true"
+												toolTipContent="toolTipContentFunction()">
+												<svg height="380"></svg>
+										</nvd3-discrete-bar-chart>
+									</div>
+						</div>
+				</div>
+				</div>
+				</div>
+				<div class="col-md-6">
+					<div class="bs-example">
+						<div class="panel panel-default">
+							<div class="panel-heading"><strong>Spend by Region</strong></div>
+							<div class="panel-body">
+								<div ng-controller="stackedAreaChart">
+										<nvd3-stacked-area-chart
+												data="stackedAreaChartData"
+												id="exampleId"
+												height="400"
+												showXAxis="true"
+												showYAxis="true"
+												tooltips="true"
+												interactive="true"
+												useInteractiveGuideline="true"
+												toolTipContent="toolTipContentFunction()"
+												xAxisTickFormat="xAxisTickFormat()"
+												xAxisTickFormat="yAxisTickFormat()"
+												 showLegend="true"
+												  showControls="true">
+											<svg height="380"></svg>
+										</nvd3-stacked-area-chart>
+								</div>
+							</div>
+				</div>
+				</div>
+				</div>
+				
+		</div>
+		<div class='row'>
+				<div class="col-md-6">
+					<div class="bs-example">
+						<div class="panel panel-default">
+							<div class="panel-heading"><strong>Spend by Single Supplier</strong></div>
+							<div class="panel-body">
+								<div ng-controller="lineChartCtrl">
+									<nvd3-line-chart
+										data="lineChartData"
+										id="showLegendExample"
+										showXAxis="true"
+										showYAxis="true"
+										tooltips="true"
+										margin="{left:50,top:50,bottom:50,right:50}"
+										xAxisTickFormat="xAxisTickFormat()"
+										yAxisTickFormat="yAxisTickFormat()"
+										showLegend="true">
+											<svg height="380"></svg>
+									</nvd3-line-chart>
+								</div>  
+							</div>
+				</div>
+				</div>
+				</div>
+				<div class="col-md-6">
+					<div class="bs-example">
+						<div class="panel panel-default">
+							<div class="panel-heading"><strong>Spend by Categories</strong></div>
+							<div class="panel-body">
+								<div ng-controller="pieChartCtrl">
+									<nvd3-pie-chart
+										data="pieChartData"
+										x="xFunction()"
+										y="yFunction()"
+										showLabels="true"
+										showValues="true"
+										labelType="percent"
+										showLegend="true">
+										<svg height="380"></svg>
+									</nvd3-pie-chart>
+								</div>   
+						</div>
+				</div>
+				</div>
+				</div>
+		<!-- Row EOF -->		
+		</div>
+</div>
+
+	</div>
+	
+</body>
+</html>
