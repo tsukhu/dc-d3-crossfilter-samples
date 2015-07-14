@@ -32,17 +32,7 @@
                         return d3.format(',.2f')(d);
                     }
             };
-
-			
-            $scope.toolTipContentFunction = function(){
-                return function(key, x, y, e, graph) {
-                    console.log('tooltip content');
-                    return  'Super New Tooltip' +
-                            '<h1>' + key + '</h1>' +
-                            '<p>' +  y + ' at ' + x + '</p>'
-                }
-            };
-
+	
         }
 		
 // Pie Chart
@@ -126,4 +116,5 @@ function lineChartCtrl($scope){
                         return d3.format(',.2f')(d);
                     }
             };
+			
 }
