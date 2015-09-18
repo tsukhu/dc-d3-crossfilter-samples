@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+	<title> D3 Tutorial </title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-beta.12/dc.min.js" charset="utf-8"></script>
+	<script src="../js/melt.js" charset="utf-8"></script>
+	<script src="http://colorbrewer2.org/export/colorbrewer.js" charset="utf-8"> </script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" charset="utf-8"> </script>
+	<script src="http://code.angularjs.org/1.4.5/angular.js"></script>
+	<script src="scripts/radar.js"></script>
+    <script src="scripts/radarDraw.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.0.0-beta.12/dc.min.css">
+	<link rel="stylesheet" type="text/css" href="http://colorbrewer2.org/export/colorbrewer.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<style>
+	.my-text {
+		font-family: 'Josefin Sans', sans-serif;
+	}
+</style>
+
+<script> 
+    $(function(){
+      $("#sample-menu").load("menu.html"); 
+    });
+   </script> 
+</head>
+<body class="container my-text" ng-app="RadarChart" ng-controller="MainCtrl" id='main-container'>
+		<div id="sample-menu"></div>
+
+<!-- header -->
+  <header class="page-header">
+    <h1>D3 Tech Radar Chart</h1> 
+    <p class="text-small">AngularJS/D3 application showcasing an interactive D3 radar chart (with facetting) and customized for creating your own Tech Radar</p>
+  </header>
+
+
+  <!-- main content -->
+  <div class="main container">
+    <h2>Visualization</h2>
+
+    <!-- visualization -->
+    <div class="visualization col-xs-7">
+      <p>Select example:
+        <select ng-options="example for example in radar.examples" ng-model="radar.exampleSelected" ng-change="radar.selectExample(radar.exampleSelected)"></select>
+      </p>
+      <div class="visualization">
+        <radar csv="radar.csv" config="radar.config"></radar>
+      </div>
+    </div>
+
+
+    <!-- configuration -->
+    <div class="configuration col-xs-5">
+      <form>
+        <h3>Configuration Parameters</h3>
+        <div class="form-group">
+          <label>Width:</label>
+          <input type="number" class="form-control-inline" step="50" ng-model="radar.config.w" />
+          <label>Height:</label>
+          <input type="number" class="form-control-inline" step="50" ng-model="radar.config.h" />
+        </div>
+        <div class="form-group">
+          <label>Levels:</label>
+          <input type="number" class="form-control-inline" step="1" ng-model="radar.config.levels" />
+        </div>
+        <div class="form-group">
+          <label>Padding Scale:</label>
+          <input type="number" class="form-control-inline" step="0.1" ng-model="radar.config.facetPaddingScale" />
+        </div>
+        <div class="form-group">
+          <label>Label Scale:</label>
+          <input type="number" class="form-control-inline" step="0.1" ng-model="radar.config.labelScale" />
+        </div>
+        <div class="form-group">
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.facet" /><span class="text-primary">Facet Plot</span></label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevels" />Levels</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxes" />Axes</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showVertices" />Vertices</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showPolygons" />Polygons</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLegend" />Legend</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showLevelsLabels" />Levels Labels</label>
+          <label class="checkbox"><input type="checkbox" ng-model="radar.config.showAxesLabels" />Axes Labels</label>
+        </div>
+        <p class="text-muted">(NOTE: Not all configuration options are shown, refer to <code>README.md</code> or <code>radarDraw.js</code> for more details)</p>
+      </form>
+    </div>
+  </div>
+  <hr />
+  
+  <!-- description -->
+  <div class="description">
+    <h3>Upload New File</h3>
+    <input id="fileUpload" type="file" on-read-file="radar.getData($fileContent)" />
+  </div>
+  <hr/>
+  
+   <!-- details -->
+  <div class="Details">
+    <h2>Details</h2>
+    <p>This is a variation of the <a href="http://bl.ocks.org/chrisrzhou/2421ac6541b68c1680f8">original</a> D3 radar chart.</p>
+    <p>The data input takes the form of a csv file with the following schema:</p>
+    <ul>
+      <li><code>group (int/string):</code> data to be grouped into an object to plot the required polygon on the radar chart.</li>
+      <li><code>axis (int/string):</code> the axis of the radar charts (dimensions of the multivariate data).</li>
+      <li><code>value (int):</code> the data value of the given record.</li>
+      <li><code>description (int/string):</code> not a mandatory field, and additional columns after this are accepted as well.</li>
+    </ul>
+    <hr />
+  </div>
+  
+  <!-- data/file preview -->
+  <div class="preview">
+    <h2>Data</h2>
+    <pre>{{ radar.csv }}</pre>
+  </div>
+  
+
+  <script src="scripts/sample7-techradar.js" charset="utf-8"></script>
+
+
+	
+</body>
+</html>
