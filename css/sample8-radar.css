@@ -27,9 +27,10 @@ path.trial-arc {
 path.adopt-arc {
   fill: #e4e4e4;
 }
+
 text.label {
   cursor: pointer;
-  font: 9px arial,helvetica,clean,sans-serif;
+  font: 8px arial,helvetica,clean,sans-serif;
 }
 g.blip-container {
   cursor: pointer;
