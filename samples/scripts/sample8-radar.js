@@ -8,6 +8,7 @@ Radar = (function (){
       _doRadar(svg);
       _defineBlips(svg);
       _drawBlips(svg, json_path);
+  //    _drawBlipsCSV(svg, json_path);
     });
   }
 
@@ -85,6 +86,12 @@ Radar = (function (){
     });
   }
 
+  function _drawBlipsCSV(svg, csv_path) {
+	    d3.csv(csv_path, function (blipData) {
+	      _drawBlipsUpon(svg, blipData);
+	    });
+  }
+  
   function _drawBlipsUpon(svg, blipData) {
     var center = _centerOf(svg),
         blips = svg.selectAll('.blip-container')
