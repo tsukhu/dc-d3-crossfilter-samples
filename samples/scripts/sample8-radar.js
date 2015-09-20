@@ -11,6 +11,13 @@ Radar = (function (){
   //    _drawBlipsCSV(svg, json_path);
     });
   }
+  
+  function reDraw(json_path) {
+	  var svg = d3.select('#radar');
+	  // Clear earlier blips
+	  svg.selectAll('.blip-container').remove();
+	  _drawBlips(svg, json_path);
+  }
 
   function zoomIn(quadrantName) {
     var quadrant = d3.select("g#" + quadrantName).select(".largest-arc");
@@ -167,6 +174,7 @@ Radar = (function (){
 
   return {
     draw: draw,
+    reDraw: reDraw,
     zoomIn: zoomIn,
     zoomOut: zoomOut
   };

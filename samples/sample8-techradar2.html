@@ -39,6 +39,9 @@
   				<button type="button" class="btn btn-info" id="btn-tools">Tools</button>
   				<button type="button" class="btn btn-info" id="btn-platforms">Platforms</button>
   				<button type="button" class="btn btn-info" id="btn-languages">Languages</button>
+  				<div class="row span12 btn btn-default btn-file">
+					<input type="file" id="i_file" value=""> 
+				</div>
 			</div>
 			</div>
 			</div>
@@ -93,7 +96,8 @@
 	<script src="scripts/sample8-radar.js"></script>
 	<script>
 		var radar = document.getElementById("radar-container");
-		Radar.draw(radar, "scripts/radar.svg","data/thoughtworks_tech_radar_jan_2012.json");
+		var inputFile="data/thoughtworks_tech_radar_jan_2012.json";
+		Radar.draw(radar, "scripts/radar.svg",inputFile);
 		
 		$('#btn-overview').on('click', function (e) {
 			Radar.zoomOut();
@@ -110,6 +114,12 @@
 		$('#btn-languages').on('click', function (e) {
 			Radar.zoomIn('languages');
 		});
+		$('#i_file').change( function(event) {
+			var tmppath = URL.createObjectURL(event.target.files[0]);
+			inputFile=tmppath;
+			Radar.reDraw(inputFile);
+		});
+		
 	</script>
 
 
