@@ -21,7 +21,7 @@ Radar = (function (){
 
   function zoomIn(quadrantName) {
     var quadrant = d3.select("g#" + quadrantName).select(".largest-arc");
-
+    
     quadrant.on("click").call(quadrant[0][0]);
   }
 
@@ -118,7 +118,23 @@ Radar = (function (){
         .attr('y', function (blip){
           return center.y + _toRect(blip.pc).y;
         })
-        .attr('title', function (blip) { return blip.name });
+        .attr('title', function (blip) { return blip.name })
+        .style('fill', function (blip) {
+        	if (blip.pc.t <=90) {
+        		return "#d9534f";
+        	} else if (blip.pc.t >90 && blip.pc.t <=180 ) {
+        		return "#f0ad4e";
+        	} else if (blip.pc.t >180 && blip.pc.t <=270 ) {
+        		return "#5cb85c";
+        	} else {
+        		return "#5bc0de";//"#000033";//"#5bc0de";
+        	}
+       }
+        );
+    
+ 
+    	
+ 
 
     blip.append('text')
         .text(function (blip) { return blip.name; })

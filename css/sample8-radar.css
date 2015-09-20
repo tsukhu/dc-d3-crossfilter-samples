@@ -30,7 +30,8 @@ path.adopt-arc {
 
 text.label {
   cursor: pointer;
-  font: 8px arial,helvetica,clean,sans-serif;
+ /* padding-left: 50%;*/
+  font: 7px arial,helvetica,clean,sans-serif;
 }
 g.blip-container {
   cursor: pointer;
