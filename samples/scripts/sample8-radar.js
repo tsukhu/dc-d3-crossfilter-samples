@@ -120,13 +120,13 @@ Radar = (function (){
         })
         .attr('title', function (blip) { return blip.name })
         .style('fill', function (blip) {
-        	if (blip.pc.t <=90) {
+        	if (blip.pc.t <=90) {	//Languages
         		return "#d9534f";
-        	} else if (blip.pc.t >90 && blip.pc.t <=180 ) {
+        	} else if (blip.pc.t >90 && blip.pc.t <=180 ) { //Platforms
         		return "#f0ad4e";
-        	} else if (blip.pc.t >180 && blip.pc.t <=270 ) {
+        	} else if (blip.pc.t >180 && blip.pc.t <=270 ) { //Techniques
         		return "#5cb85c";
-        	} else {
+        	} else { //Tools
         		return "#5bc0de";//"#000033";//"#5bc0de";
         	}
        }
