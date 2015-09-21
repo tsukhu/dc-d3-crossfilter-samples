@@ -100,13 +100,26 @@ Radar = (function (){
   }
   
   function _drawBlipsUpon(svg, blipData) {
+	
+	var tip = d3.tip()
+    	.attr('class', 'd3-tip')
+    	.offset([-10, 0])
+    	.html(function(d) {
+    	return "<strong>Name:</strong> <span>" + d.name + "</span><br>"+
+    			d.description;
+    })
+    
+    
+	    
     var center = _centerOf(svg),
         blips = svg.selectAll('.blip-container')
                    .data(blipData);
+		
         blip = blips.enter()
                     .append('g')
                     .attr('class', 'blip-container')
                     .on('click', _showBlipDescription);
+
 
     blip.append('use')
         .attr('xlink:href', function (blip) {
@@ -144,8 +157,11 @@ Radar = (function (){
         .attr('transform', function (blip) {
           var blipCenter = _toRect(blip.pc);
           return 'translate(' + (center.x+blipCenter.x+5) + ', ' + (center.y+blipCenter.y-2) + ')';
-        });
-
+        })
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide);
+    
+    svg.call(tip);
     return svg;
   }
 
