@@ -16,6 +16,7 @@ Radar = (function (){
 	  var svg = d3.select('#radar');
 	  // Clear earlier blips
 	  svg.selectAll('.blip-container').remove();
+	  d3.select("#radar-table").selectAll('.blip-table').remove();
 	  _drawBlips(svg, json_path);
   }
 
@@ -211,7 +212,7 @@ Radar = (function (){
   function tabulate(data, columns) {
       var table = d3.select("#radar-table").append("table")
               .attr("style", "margin-left: 150px")
-              .attr("class","table table-bordered table-striped table-condensed"),
+              .attr("class","blip-table table table-bordered table-striped table-condensed"),
           thead = table.append("thead"),
           tbody = table.append("tbody");
 
