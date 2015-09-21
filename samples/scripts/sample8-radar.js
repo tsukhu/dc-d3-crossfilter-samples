@@ -67,6 +67,7 @@ Radar = (function (){
 
                d3.selectAll('text').style('display', 'block')
                  .transition()
+           //      .call(wrap, 50)
                  .duration(800)
                  .style('opacity', '1')
              })
@@ -79,7 +80,7 @@ Radar = (function (){
                .attr('r', 4)
                .attr('class', 'unchanged blip')
                .attr('id', 'circular-blip');
-
+  			
    definitions.append('polygon')
               .attr('points', '-2,-2 8,-2 3,-10')
               .attr('class', 'changed blip')
@@ -90,8 +91,14 @@ Radar = (function (){
 
   function _drawBlips(svg, json_path) {
     d3.json(json_path, function (blipData) {
+    	var i=1;
+    	blipData.forEach(function(d) {
+    		d.id = i;
+    		i++;
+    	});
+    	
       _drawBlipsUpon(svg, blipData);
-      tabulate(blipData, ["name", "quadrant","description"]);
+      tabulate(blipData, ["id","name", "quadrant","description"]);
     });
   }
 
@@ -107,7 +114,7 @@ Radar = (function (){
     	.attr('class', 'd3-tip')
     	.offset([-10, 0])
     	.html(function(d) {
-    	return "<strong>Name:</strong> <span>" + d.name + "</span><br>"+
+    	return "<strong>Name:</strong> <span>" + d.name + " ("+d.id+")"+"</span><br>"+
     			d.description;
     })
     
@@ -133,7 +140,7 @@ Radar = (function (){
         .attr('y', function (blip){
           return center.y + _toRect(blip.pc).y;
         })
-        .attr('title', function (blip) { return blip.name })
+        .attr('title', function (blip) { return blip.id })
         .style('fill', function (blip) {
         	if (blip.pc.t <=90) {	//Languages
         		return "#d9534f";
@@ -147,8 +154,7 @@ Radar = (function (){
        }
         );
     
- 
-    	
+  	
  
 
     blip.append('text')
@@ -158,10 +164,27 @@ Radar = (function (){
         .attr('class', 'label')
         .attr('transform', function (blip) {
           var blipCenter = _toRect(blip.pc);
-          return 'translate(' + (center.x+blipCenter.x+5) + ', ' + (center.y+blipCenter.y-2) + ')';
+          var xOffset = blip.movement == 'c' ? 4: 8;
+          var yOffset = blip.movement == 'c' ? 9: 6;
+          return 'translate(' + (center.x+blipCenter.x-xOffset) + ', ' + (center.y+blipCenter.y+yOffset) + ')';
         })
         .on('mouseover', tip.show)
         .on('mouseout', tip.hide);
+    
+    blip.append('text')
+    .text(function (blip) { return blip.id; })
+    .style('opacity', '0')
+    .style('display', 'none')
+    .attr('class', 'blip-id')
+    .attr("text-anchor", "middle")
+    .attr('transform', function (blip) {
+          var blipCenter = _toRect(blip.pc);
+          var xOffset = blip.movement == 'c' ? 0: 2;
+          var yOffset = blip.movement == 'c' ? -2: 2;
+          return 'translate(' + (center.x+blipCenter.x+xOffset) + ', ' + (center.y+blipCenter.y-yOffset) + ')';
+        });
+
+
     
     svg.call(tip);
     
@@ -247,6 +270,30 @@ Radar = (function (){
   
   String.prototype.capitalize = function() {
 	    return this.charAt(0).toUpperCase() + this.slice(1);
+	}
+  
+  function wrap(text, width) {
+	  text.each(function() {
+	    var text = d3.select(this),
+	        words = text.text().split(/\s+/).reverse(),
+	        word,
+	        line = [],
+	        lineNumber = 0,
+	        lineHeight = 1.1, // ems
+	        y = text.attr("y"),
+	        dy = parseFloat(text.attr("dy")),
+	        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+	    while (word = words.pop()) {
+	      line.push(word);
+	      tspan.text(line.join(" "));
+	      if (tspan.node().getComputedTextLength() > width) {
+	        line.pop();
+	        tspan.text(line.join(" "));
+	        line = [word];
+	        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+	      }
+	    }
+	  });
 	}
   
   return {

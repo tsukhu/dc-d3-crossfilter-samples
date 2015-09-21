@@ -1,6 +1,6 @@
 [
-{"name":"Automate Database Deployment", "pc":{"r":90,"t":135},"movement":"c", "quadrant":"Techniques","description": "Awesome!"},
-{"name":"Coding architects", "pc":{"r":70,"t":175},"movement":"c", "quadrant":"Techniques","description": "Awesome!"},
+{"name":"Automate Database Deployment", "pc":{"r":90,"t":185},"movement":"c", "quadrant":"Techniques","description": "Awesome!"},
+{"name":"Coding architects", "pc":{"r":70,"t":185},"movement":"c", "quadrant":"Techniques","description": "Awesome!"},
 {"name":"Continuous Delivery", "pc":{"r":145,"t":175},"movement":"c", "quadrant":"Techniques","description": "Awesome!"},
 {"name":"Data visualizations of development and operations", "pc":{"r":75,"t":148},"movement":"c","quadrant":"Techniques", "description": "Awesome!"},
 {"name":"DevOps", "pc":{"r":90,"t":157},"movement":"c", "quadrant":"Techniques","description": "Awesome!"},

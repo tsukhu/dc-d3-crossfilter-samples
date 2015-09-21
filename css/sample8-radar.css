@@ -33,6 +33,16 @@ text.label {
  /* padding-left: 50%;*/
   font: 7px arial,helvetica,clean,sans-serif;
 }
+
+.blip-id {
+  cursor: pointer;
+ /* padding-left: 50%;*/
+
+ font: 7px arial,helvetica,clean,sans-serif;
+ fill: black;
+  font-weight: bolder;
+}
+
 g.blip-container {
   cursor: pointer;
 }
